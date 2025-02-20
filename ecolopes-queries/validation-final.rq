@@ -1,0 +1,26 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX dap: <https://schema.dap.tuwien.ac.at#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+
+INSERT {
+    GRAPH <https://data.validation.dap.tuwien.ac.at> {
+		?node networks-schema:isValid ?validReturn
+	}
+}
+WHERE
+{
+    SELECT ?node (MIN(?valid) as ?validReturn)
+    {  
+        SELECT ?node ?valid
+        {
+            ?result networks-schema:validationResultHasConstraint ?c ; networks-schema:isValid ?valid ; networks-schema:validationResultHasNode ?node .
+            { { ?c a networks-schema:ProximityConstraint } UNION { ?c a networks-schema:SolarConstraint } UNION { ?c a networks-schema:PlaneConstraint }  }
+        } GROUP BY ?node ?valid
+
+    } GROUP BY ?node
+}

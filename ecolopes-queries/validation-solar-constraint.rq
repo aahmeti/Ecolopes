@@ -1,0 +1,37 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+PREFIX dap: <https://schema.dap.tuwien.ac.at#>
+
+INSERT {
+    GRAPH <https://data.validation.dap.tuwien.ac.at> {
+            [] a networks-schema:ValidationResult ; 
+                    networks-schema:validationResultHasConstraint ?constraint ; 
+                    networks-schema:validationResultHasNode ?node1 ; 
+                    networks-schema:isValid ?final . 
+	}
+}
+WHERE 
+{
+	?node1 networks-schema:x ?fx1 ; 
+    		networks-schema:y ?fy1 ; 
+    		networks-schema:z ?fz1 ; 
+    		networks-schema:nodeHasSpecies ?species1 . 
+    
+    ?species1 ecolopes-schema:speciesHasRequirement ?constraint . 
+    ?constraint ecolopes-schema:solarRequirementMin ?min ; 
+        	  	ecolopes-schema:solarRequirementMax ?max ; 
+        	  	a networks-schema:SolarConstraint .
+    
+    ?voxel dap:vox_x ?x ; dap:vox_y ?y ; dap:vox_z ?z ; dap:t_in_d_hrs_growing_season ?hours . 
+    BIND (xsd:integer(floor(?fx1)) as ?x1)
+    BIND (xsd:integer(floor(?fy1)) as ?y1)
+    BIND (xsd:integer(floor(?fz1)) as ?z1)
+    
+    BIND (COALESCE(
+                IF(?min <= ?hours && ?hours <= ?max,true,false)) AS ?final)
+}	

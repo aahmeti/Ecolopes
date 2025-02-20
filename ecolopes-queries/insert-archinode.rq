@@ -1,0 +1,32 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX dap: <https://schema.dap.tuwien.ac.at#>
+
+INSERT {
+    GRAPH <https://data.grasshopper.dap.tuwien.ac.at> {
+		?subject networks-schema:x ?x ; networks-schema:y ?y; networks-schema:z ?z ; a ?nodeType ; 
+    			networks-schema:nodeHasArch ?arch ; networks-schema:nodeHasNodeSubType ?subType .    
+	}
+}
+WHERE
+{
+    
+    BIND (URI(CONCAT(str(ecolopes-inst:), str(UUID()))) as ?subject)
+    BIND (xsd:float(RAND()) as ?x)
+	BIND (xsd:float(RAND() * 100) as ?y)
+	BIND (xsd:float(RAND() * 10) as ?z)
+    
+    ## node type
+    BIND (networks-schema:ArchiNode as ?nodeType)
+    
+    ## sub type
+    BIND (networks-taxo:Building as ?subType)
+	
+    ## arch instances 
+    BIND (networks-taxo:MiscStructure as ?arch)
+   
+}

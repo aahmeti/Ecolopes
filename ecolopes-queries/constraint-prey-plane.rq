@@ -1,0 +1,31 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+
+INSERT {
+    GRAPH <https://data.grasshopper.dap.tuwien.ac.at> {
+        ?plane a networks-schema:Plane ; a networks-schema:PlaneConstraint ;
+                networks-schema:xstart ?xstart ; 
+                networks-schema:xend ?xend ; 
+                networks-schema:ystart ?ystart ; 
+                networks-schema:yend ?yend . 
+    }}
+WHERE
+{
+	BIND (URI(CONCAT(str(ecolopes-inst:), str(UUID()))) as ?plane)
+    BIND (xsd:float(0) as ?xstart)
+    BIND (xsd:float(20) as ?xend)
+    BIND (xsd:float(0) as ?ystart)
+    BIND (xsd:float(20) as ?yend)
+    
+    #BIND (xsd:float(RAND()) as ?xstart)
+    #BIND (xsd:float(RAND()) as ?xend)
+    #BIND (xsd:float(RAND()) as ?ystart)
+    #BIND (xsd:float(RAND()) as ?yend)
+    #FILTER (?xstart < ?xend)
+    #FILTER (?ystart < ?yend)
+}

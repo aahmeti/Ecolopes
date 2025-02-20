@@ -1,0 +1,32 @@
+PREFIX : <http://purl.obolibrary.org/obo/ro.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+
+INSERT 
+{
+    GRAPH <https://data.validation.dap.tuwien.ac.at> {
+        ?node networks-schema:nodeOverlapsPlane ?plane .
+    }
+}
+where
+{
+
+    ?plane a networks-schema:Plane ; 
+    	networks-schema:xstart ?xstart ; 
+	    networks-schema:xend ?xend ; 
+    	networks-schema:ystart ?ystart ; 
+    	networks-schema:yend ?yend .     
+
+	?node a networks-schema:EcoNode ; 
+    	networks-schema:x ?x ;
+    	networks-schema:y ?y . 
+    
+    FILTER (?xstart <= ?x && ?x <= ?xend)
+    FILTER (?ystart <= ?y && ?y <= ?yend)
+
+}

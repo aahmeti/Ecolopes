@@ -1,0 +1,31 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+PREFIX obo-ro: <http://purl.obolibrary.org/obo/>
+
+INSERT {
+    GRAPH <https://data.validation.dap.tuwien.ac.at> {
+            [] a networks-schema:ValidationResult ; 
+                    networks-schema:validationResultHasConstraint ?plane ; 
+                    networks-schema:validationResultHasNode ?node1 ; 
+                    networks-schema:validationResultHasNode ?node2 ; 
+                    networks-schema:isValid false . 
+        	
+	}
+}
+where
+{
+
+    ?node1 networks-schema:nodeHasSpecies ?species1 . 
+    ?node2 networks-schema:nodeHasSpecies ?species2 . 
+    ?species1 obo-ro:RO_0002471 ?species2 .  #eatenBy
+
+    FILTER (?node1 != ?node2)
+    ?node1 networks-schema:nodeOverlapsPlane ?plane .
+    ?node2 networks-schema:nodeOverlapsPlane ?plane .
+    
+}

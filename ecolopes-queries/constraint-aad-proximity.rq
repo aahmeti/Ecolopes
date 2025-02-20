@@ -1,0 +1,28 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+PREFIX dap: <https://schema.dap.tuwien.ac.at#>
+
+INSERT {
+    GRAPH <https://data.aad.dap.tuwien.ac.at> {
+        <<?species1 ecolopes-schema:proximityDistance ?species2>> 
+            ecolopes-schema:speciesHasRequirement [
+          	  	ecolopes-schema:proximityRequirementMin ?min ; 
+        		ecolopes-schema:proximityRequirementMax ?max ; 
+        		a networks-schema:ProximityConstraint 
+		]
+ }}
+WHERE
+{
+    BIND (ecolopes-inst:Abies%20alba as ?species1)
+    #BIND (ecolopes-inst:Scopula%20floslactata as ?species2)	
+    BIND (ecolopes-inst:Scopula%20floslactata2 as ?species2)	
+   
+    BIND (30 as ?min)
+    BIND (60 as ?max)
+
+}

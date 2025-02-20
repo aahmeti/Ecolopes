@@ -1,0 +1,279 @@
+@prefix : <http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/> .
+
+<https://schema.dap.tuwien.ac.at/network#> rdf:type owl:Ontology ;
+                                            owl:versionIRI <https://schema.dap.tuwien.ac.at/network#> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+<http://www.w3.org/2004/02/skos/core#altLabel> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broadMatch
+<http://www.w3.org/2004/02/skos/core#broadMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broader
+<http://www.w3.org/2004/02/skos/core#broader> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+<http://www.w3.org/2004/02/skos/core#closeMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+<http://www.w3.org/2004/02/skos/core#definition> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+<http://www.w3.org/2004/02/skos/core#exactMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+<http://www.w3.org/2004/02/skos/core#example> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hasTopConcept
+<http://www.w3.org/2004/02/skos/core#hasTopConcept> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hiddenLabel
+<http://www.w3.org/2004/02/skos/core#hiddenLabel> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+<http://www.w3.org/2004/02/skos/core#inScheme> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrowMatch
+<http://www.w3.org/2004/02/skos/core#narrowMatch> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrower
+<http://www.w3.org/2004/02/skos/core#narrower> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#notation
+<http://www.w3.org/2004/02/skos/core#notation> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#note
+<http://www.w3.org/2004/02/skos/core#note> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+<http://www.w3.org/2004/02/skos/core#prefLabel> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#related
+<http://www.w3.org/2004/02/skos/core#related> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#scopeNote
+<http://www.w3.org/2004/02/skos/core#scopeNote> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#topConceptOf
+<http://www.w3.org/2004/02/skos/core#topConceptOf> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/nodeHasArch
+:nodeHasArch rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :ArchNode ,
+                         :Node .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/nodeHasDistanceToNode
+:nodeHasDistanceToNode rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty ;
+                       rdf:type owl:SymmetricProperty ;
+                       rdfs:domain :Node ;
+                       rdfs:range :Node .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/nodeHasNodeSubType
+:nodeHasNodeSubType rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdfs:domain :Node .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/nodeHasSpecies
+:nodeHasSpecies rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :EcoNode ,
+                            :Node ;
+                rdfs:range :Node .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/validationResultHasConstraint
+:validationResultHasConstraint rdf:type owl:ObjectProperty ,
+                                        owl:FunctionalProperty ;
+                               rdfs:range :Constraint .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/validationResultHasNode
+:validationResultHasNode rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf owl:topObjectProperty ;
+                         rdfs:range :Node .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty rdfs:domain :Node .
+
+
+###  https://schema.dap.tuwien.ac.at/network#nodeOverlapsPlane
+:nodeOverlapsPlane rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain :Node ;
+                   rdfs:range :Plane .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/isValid
+:isValid rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/x
+:x rdf:type owl:DatatypeProperty ;
+   rdfs:subPropertyOf owl:topDataProperty ;
+   rdfs:domain :Node ;
+   rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/y
+:y rdf:type owl:DatatypeProperty ;
+   rdfs:subPropertyOf owl:topDataProperty ;
+   rdfs:domain :Node ;
+   rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/z
+:z rdf:type owl:DatatypeProperty ;
+   rdfs:subPropertyOf owl:topDataProperty ;
+   rdfs:domain :Node ;
+   rdfs:range xsd:float .
+
+
+###  https://schema.dap.tuwien.ac.at/network#xend
+:xend rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://schema.dap.tuwien.ac.at/network#xstart
+:xstart rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://schema.dap.tuwien.ac.at/network#yend
+:yend rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  https://schema.dap.tuwien.ac.at/network#ystart
+:ystart rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/ArchNode
+:ArchNode rdf:type owl:Class ;
+          rdfs:subClassOf :Node ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :nodeHasArch ;
+                            owl:someValuesFrom owl:Thing
+                          ] .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/Constraint
+:Constraint rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/EcoNode
+:EcoNode rdf:type owl:Class ;
+         rdfs:subClassOf :Node ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :nodeHasSpecies ;
+                           owl:allValuesFrom owl:Thing
+                         ] .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/Node
+:Node rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :nodeHasNodeSubType ;
+                        owl:someValuesFrom owl:Thing
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :nodeHasDistanceToNode ;
+                        owl:allValuesFrom :Node
+                      ] .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/ProximityConstraint
+:ProximityConstraint rdf:type owl:Class ;
+                     rdfs:subClassOf :Constraint .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/SolarConstraint
+:SolarConstraint rdf:type owl:Class ;
+                 rdfs:subClassOf :Constraint .
+
+
+###  http://www.semanticweb.org/ahmetia/ontologies/2024/10/untitled-ontology-2/ValidationResult
+:ValidationResult rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty :validationResultHasConstraint ;
+                                    owl:someValuesFrom :Constraint
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :validationResultHasNode ;
+                                    owl:someValuesFrom :Node
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :isValid ;
+                                    owl:someValuesFrom xsd:boolean
+                                  ] .
+
+
+###  https://schema.dap.tuwien.ac.at/network#Plane
+:Plane rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :xend ;
+                         owl:someValuesFrom xsd:float
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :xstart ;
+                         owl:someValuesFrom xsd:float
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :yend ;
+                         owl:someValuesFrom xsd:float
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :ystart ;
+                         owl:someValuesFrom xsd:float
+                       ] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

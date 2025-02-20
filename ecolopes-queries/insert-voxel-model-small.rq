@@ -1,0 +1,29 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX dap: <https://schema.dap.tuwien.ac.at#>
+
+INSERT {
+    GRAPH <https://data.voxel.dap.tuwien.ac.at> { 
+            ?subject a dap:Voxel ;
+                dap:vox_x ?vox_x ;
+                dap:vox_y ?vox_y ;	
+                dap:vox_z ?vox_z ; 
+                dap:t_in_d_hrs_growing_season ?value . 
+    }
+}
+where {
+    ?s networks-schema:x ?x ;
+     	networks-schema:y ?y ; 
+    		networks-schema:z ?z .
+    
+    BIND (xsd:integer(round(?x)) as ?vox_x)   
+    BIND (xsd:integer(round(?y)) as ?vox_y)	
+    BIND (xsd:integer(round(?z)) as ?vox_z)   
+    BIND (URI(CONCAT("https://resource.dap.tuwien.ac.at/vox_lvl45/", str(xsd:int(round(?x))), "_", str(xsd:int(round(?y))), "_", str(xsd:int(round(?z))))) as ?subject)
+    
+    BIND (xsd:integer(round(RAND() * 11 + 1)) as ?value)
+}

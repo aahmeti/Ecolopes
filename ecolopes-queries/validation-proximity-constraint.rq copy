@@ -1,0 +1,44 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX networks-schema: <https://schema.dap.tuwien.ac.at/network#>
+PREFIX networks-inst: <https://resource.dap.tuwien.ac.at/network/>
+PREFIX networks-taxo: <https://taxonomy.dap.tuwien.ac.at/network/>
+PREFIX ecolopes-inst: <https://resource.ecolopes.org/>
+PREFIX ecolopes-schema: <https://schema.ecolopes.org#>
+PREFIX ofn: <http://www.ontotext.com/sparql/functions/>
+
+INSERT {
+    GRAPH <https://data.validation.dap.tuwien.ac.at> {
+            [] a networks-schema:ValidationResult ; 
+                    networks-schema:validationResultHasConstraint ?constraint ; 
+                    networks-schema:validationResultHasNode ?node1 ; 
+                    networks-schema:validationResultHasNode ?node2 ; 
+                    networks-schema:isValid ?final . 
+	}
+}
+WHERE 
+{
+#    BIND (CONCAT(networks-inst:, str(?node1), str(?node2), ) as ?subject)
+    
+	?node1 networks-schema:x ?x1 ; 
+    		networks-schema:y ?y1 ; 
+    		networks-schema:z ?z1 . 
+    { ?node1 networks-schema:nodeHasSpecies ?species1 . } 
+
+    ?node2 networks-schema:x ?x2 ; 
+            networks-schema:y ?y2 ; 
+            networks-schema:z ?z2 . 
+    { ?node2 networks-schema:nodeHasSpecies ?specOrArch2 . } UNION { ?node2 networks-schema:nodeHasArch ?specOrArch2  } 	
+   
+    
+    FILTER (?node1 != ?node2)
+    #FILTER (str(?node1) < str(?node2))
+    BIND (ofn:sqrt(ofn:pow(?x1 - ?x2, 2) + ofn:pow(?y1 - ?y2, 2) + ofn:pow(?z1 - ?z2, 2)) as ?res)
+    
+    <<?species1 ecolopes-schema:proximityDistance ?specOrArch2>> 
+        ecolopes-schema:speciesHasRequirement ?constraint . 
+    ?constraint ecolopes-schema:proximityRequirementMin ?min ; 
+        			ecolopes-schema:proximityRequirementMax ?max . 
+    
+    BIND (COALESCE(
+                IF(?min <= ?res && ?res <= ?max,true,false)) AS ?final)
+}	
